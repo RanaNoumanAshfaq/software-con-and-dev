@@ -1,0 +1,43 @@
++---------------------+
+|     Store Management|
++---------------------+
+| - View Current Inventory
+| - View Sales Reports
+| - Create Financial Reports
++---------------------+
+
++---------------------+
+|       Sales Staff   |
++---------------------+
+| - Create Customer Orders
+| - Manage Customer Orders
+| - Process Product Returns
+| - Exchange Products
+| - Update Customers About Order Status
++---------------------+
+
++---------------------+
+|   Inventory Manager |
++---------------------+
+| - Add Furniture Items
+| - Remove Furniture Items
+| - Update Furniture Items
+| - Monitor Furniture Availability
++---------------------+
+
++---------------------+
+|       Customer      |
++---------------------+
+| - Add Items to Shopping Cart
+| - Track Orders
+| - View Detailed Information About Furniture
++---------------------+
+
++---------------------+
+|    Finance Officer  |
++---------------------+
+| - Generate Financial Reports
+| - Track Expenses
+| - Review Sales Data
++---------------------+
+

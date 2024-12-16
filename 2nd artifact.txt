@@ -1,0 +1,48 @@
++--------------------------------------------------+
+|                Furniture Management System       |
++--------------------------------------------------+
+|                                                  |
+|  +---------------------+                         |
+|  |                     |                         |
+|  |---------------------|                         |   STORE MANAGEMENT(ACTOR)
+|  | - View Current Inventory                      |
+|  | - View Sales Reports                          |
+|  | - Create Financial Reports                    |
+|  +---------------------+                         |
+|                                                  |
+|  +---------------------+                         |
+|  |                     |                         |
+|  |---------------------|                         |
+|  | - Create Customer Orders                      |
+|  | - Manage Customer Orders                      |
+|  | - Process Product Returns                     |   SALE STAFF(ACTOR)
+|  | - Exchange Products                           |
+|  | - Update Customers About Order Status         |
+|  +---------------------+                         |
+|                                                  |
+|  +---------------------+                         |
+|  |                     |                         |
+|  |---------------------|                         |  INVENTORY MANAGEMENT(ACTOR)
+|  | - Add Furniture Items                         |    
+|  | - Remove Furniture Items                      |
+|  | - Update Furniture Items                      |
+|  | - Monitor Furniture Availability              |
+|  +---------------------+                         |
+|                                                  |
+|  +---------------------+                         |
+|  |                     |                         |
+|  |---------------------|                         |
+|  | - Add Items to Shopping Cart                  |  CUSTOMER(ACTOR)
+|  | - Track Orders                                |
+|  | - View Detailed Information About Furniture   |
+|  +---------------------+                         |
+|                                                  |
+|  +---------------------+                         |
+|  |                     |                         |
+|  |---------------------|                         |  FINANCE OFFICER(ACTOR)
+|  | - Generate Financial Reports                  |
+|  | - Track Expenses                              |
+|  | - Review Sales Data                           |
+|  +---------------------+                         |
+|                                                  |
++--------------------------------------------------+

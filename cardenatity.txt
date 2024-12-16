@@ -1,0 +1,77 @@
+Here's an explanation of the relationships between the classes in the **Furniture Management System (FMS)** and their cardinality (one-to-many, many-to-many, etc.):
+
+### 1. **Furniture and InventoryManager**
+   - **Relationship**: One-to-Many
+   - **Explanation**: An `InventoryManager` manages multiple `Furniture` items in the store's inventory.
+   - **Cardinality**: One `InventoryManager` manages multiple `Furniture` objects, but each `Furniture` item belongs to a single inventory managed by one `InventoryManager`.
+
+### 2. **Order and Customer**
+   - **Relationship**: Many-to-One
+   - **Explanation**: Each `Order` is placed by a `Customer`, and a customer can place multiple orders over time. An order belongs to a single customer.
+   - **Cardinality**: Many `Order` objects belong to one `Customer`.
+
+### 3. **Order and Furniture**
+   - **Relationship**: Many-to-Many
+   - **Explanation**: An `Order` can include multiple `Furniture` items, and a single `Furniture` item can be part of multiple orders.
+   - **Cardinality**: Many `Order` objects contain many `Furniture` objects. To represent this, a linking class (like `OrderItem`) could be used to handle this many-to-many relationship in implementation.
+
+### 4. **Customer and ShoppingCart**
+   - **Relationship**: One-to-One
+   - **Explanation**: Each `Customer` has one `ShoppingCart`, and each `ShoppingCart` belongs to only one customer.
+   - **Cardinality**: One `Customer` has one `ShoppingCart`.
+
+### 5. **ShoppingCart and Furniture**
+   - **Relationship**: Many-to-Many
+   - **Explanation**: A `ShoppingCart` can contain multiple `Furniture` items, and a single `Furniture` item can be in multiple shopping carts (for different customers).
+   - **Cardinality**: Many `ShoppingCart` objects contain many `Furniture` items. Similar to the `Order` and `Furniture` relationship, this can be implemented via a linking class.
+
+### 6. **SalesStaff and Order**
+   - **Relationship**: One-to-Many
+   - **Explanation**: Each `SalesStaff` member creates and manages multiple `Order` objects. An order is handled by one sales staff member.
+   - **Cardinality**: One `SalesStaff` member handles many `Order` objects.
+
+### 7. **StoreManagement and Report**
+   - **Relationship**: One-to-Many
+   - **Explanation**: `StoreManagement` can generate multiple `Report` objects (for sales, inventory, etc.).
+   - **Cardinality**: One `StoreManagement` object generates many `Report` objects.
+
+### 8. **FinanceOfficer and Report**
+   - **Relationship**: One-to-Many
+   - **Explanation**: A `FinanceOfficer` generates financial `Report` objects to track expenses, sales data, etc.
+   - **Cardinality**: One `FinanceOfficer` generates multiple `Report` objects.
+
+### 9. **Order and Payment**
+   - **Relationship**: One-to-One
+   - **Explanation**: Each `Order` has one associated `Payment`. The payment is processed for a single order.
+   - **Cardinality**: One `Order` has one `Payment`, and each `Payment` is tied to one `Order`.
+
+---
+
+### Cardinality Summary:
+- **One-to-Many**:
+  - `InventoryManager` -> `Furniture`
+  - `SalesStaff` -> `Order`
+  - `StoreManagement` -> `Report`
+  - `FinanceOfficer` -> `Report`
+
+- **Many-to-One**:
+  - `Order` -> `Customer`
+
+- **Many-to-Many**:
+  - `Order` <-> `Furniture`
+  - `ShoppingCart` <-> `Furniture`
+
+- **One-to-One**:
+  - `Customer` -> `ShoppingCart`
+  - `Order` -> `Payment`
+
+2. Inventory Class
+Attributes:
+inventoryID: Unique identifier for the inventory record.
+stockLevel: Current stock level of all furniture items.
+lastUpdated: Date and time when the inventory was last updated.
+furniture: List of Furniture items currently in inventory.
+Relationships:
+Inventory -> Furniture (One-to-Many): An Inventory can track multiple Furniture items, but each item belongs to only one inventory record.
+Inventory -> InventoryManager (One-to-One): The InventoryManager oversees the Inventory. Each InventoryManager is responsible for one inventory.
+Inventory -> Sales (One-to-Many): Each Inventory can be associated with multiple Sales records, as sales will reduce the stock level.In cases of **many-to-many relationships** (e.g., `Order` and `Furniture` or `ShoppingCart` and `Furniture`), these can be represented by an intermediary table (like `OrderItem`) to associate multiple items with multiple orders.

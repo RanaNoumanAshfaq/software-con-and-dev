@@ -1,0 +1,251 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+class Product {
+    int productId;
+    String name;
+    double price;
+    int quantity;
+    String description;
+
+   
+    Product(int productId, String name, double price, int quantity, String description) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+    }
+
+    String getDetails() {
+        return "ID: " + productId + ", Name: " + name + ", Price: " + price + ", Quantity: " + quantity + ", Description: " + description;
+    }
+
+    void updateStock(int quantity) {
+        this.quantity += quantity;
+    }
+}
+
+
+class Customer {
+    int customerId;
+    String name;
+    List<Product> cart;
+    List<Order> orders;
+
+   
+    Customer(int customerId, String name) {
+        this.customerId = customerId;
+        this.name = name;
+        this.cart = new ArrayList<>();
+        this.orders = new ArrayList<>();
+    }
+
+    void addToCart(Product item) {
+        cart.add(item);
+    }
+
+    OrderStatus trackOrder(int orderId) {
+        for (Order order : orders) {
+            if (order.orderId == orderId) {
+                return OrderStatus.valueOf(order.status.toUpperCase());
+            }
+        }
+        return null;
+    }
+
+    Product viewProductDetails(int productId) {
+        for (Product product : cart) {
+            if (product.productId == productId) {
+                return product;
+            }
+        }
+        return null;
+    }
+}
+
+class Order {
+    int orderId;
+    Customer customer;
+    List<Product> items;
+    String status;
+    double totalAmount;
+
+    Order(int orderId, Customer customer, List<Product> items) {
+        this.orderId = orderId;
+        this.customer = customer;
+        this.items = items;
+        this.status = "New";
+        this.totalAmount = calculateTotal();
+    }
+
+    double calculateTotal() {
+        totalAmount = items.stream().mapToDouble(item -> item.price * item.quantity).sum();
+        return totalAmount;
+    }
+
+    void updateStatus(String status) {
+        this.status = status;
+    }
+}
+
+
+class InventoryManager {
+    int managerId;
+    String name;
+    List<Product> inventory;
+
+   
+    InventoryManager(int managerId, String name) {
+        this.managerId = managerId;
+        this.name = name;
+        this.inventory = new ArrayList<>();
+    }
+
+    void addFurniture(Product item) {
+        inventory.add(item);
+    }
+
+    void removeFurniture(int itemId) {
+        inventory.removeIf(item -> item.productId == itemId);
+    }
+
+    void updateFurniture(int itemId, Product details) {
+        for (Product item : inventory) {
+            if (item.productId == itemId) {
+                item.name = details.name;
+                item.price = details.price;
+                item.quantity = details.quantity;
+                item.description = details.description;
+                break;
+            }
+        }
+    }
+
+    List<Product> monitorAvailability() {
+        return inventory;
+    }
+}
+
+class SalesStaff {
+    int staffId;
+    String name;
+    List<Order> managedOrders;
+
+    SalesStaff(int staffId, String name) {
+        this.staffId = staffId;
+        this.name = name;
+        this.managedOrders = new ArrayList<>();
+    }
+
+    Order createOrder(Customer customer, List<Product> items) {
+        Order order = new Order(managedOrders.size() + 1, customer, items);
+        managedOrders.add(order);
+        return order;
+    }
+
+    void updateOrderStatus(int orderId, String status) {
+        for (Order order : managedOrders) {
+            if (order.orderId == orderId) {
+                order.updateStatus(status);
+                break;
+            }
+        }
+    }
+}
+
+
+class StoreManager {
+    List<Product> currentInventory;
+    List<Report> salesReports;
+    List<Report> financialReports;
+
+   
+    StoreManager() {
+        this.currentInventory = new ArrayList<>();
+        this.salesReports = new ArrayList<>();
+        this.financialReports = new ArrayList<>();
+    }
+
+    void viewInventory() {
+        for (Product product : currentInventory) {
+            System.out.println(product.getDetails());
+        }
+    }
+
+    void viewSalesReports() {
+        for (Report report : salesReports) {
+            System.out.println(report.generate());
+        }
+    }
+
+    Report createFinancialReport() {
+        Report report = new Report(financialReports.size() + 1, "Financial", "Financial report content...");
+        financialReports.add(report);
+        return report;
+    }
+}
+
+
+class FinanceOfficer {
+    int officerId;
+    String name;
+    List<Report> financialData;
+
+    FinanceOfficer(int officerId, String name) {
+        this.officerId = officerId;
+        this.name = name;
+        this.financialData = new ArrayList<>();
+    }
+
+    Report generateFinancialReport() {
+        Report report = new Report(financialData.size() + 1, "Financial", "Generated financial report...");
+        financialData.add(report);
+        return report;
+    }
+
+    List<Report> reviewSalesData() {
+        return financialData;
+    }
+}
+
+
+class Report {
+    int reportId;
+    String type;
+    String content;
+
+  
+    Report(int reportId, String type, String content) {
+        this.reportId = reportId;
+        this.type = type;
+        this.content = content;
+    }
+
+    String generate() {
+        return "Report ID: " + reportId + ", Type: " + type + ", Content: " + content;
+    }
+}
+
+
+enum OrderStatus {
+    NEW, PROCESSING, COMPLETED, CANCELLED;
+}
+
+
+public class FurnitureManagementSystem {
+    public static void main(String[] args) {
+        
+        InventoryManager manager = new InventoryManager(1, "Alice");
+        Product chair = new Product(1, "Chair", 1500, 10, "Wooden chair");
+        Product table = new Product(2, "Table", 3000, 5, "Dining table");
+
+        manager.addFurniture(chair);
+        manager.addFurniture(table);
+
+        System.out.println("Inventory:");
+        manager.monitorAvailability().forEach(product -> System.out.println(product.getDetails()));
+    }
+}
